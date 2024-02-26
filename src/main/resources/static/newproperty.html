@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<form action="" id="form">
+    <label for="address">Address</label>
+    <input type="text" name="address" id="address" />
+    <label for="label">Property Name</label>
+    <input type="text" name="label" id="label" />
+    <label for="contactname">Contact Name</label>
+    <input type="text" name="contactname" id="contactname" />
+    <label for="latitude">Latitude</label>
+    <input type="text" name="latitude" id="latitude" />
+    <label for="longitude">Longitude</label>
+    <input type="text" name="longitude" id="longitude" />
+    <label for="phone">Phone</label>
+    <input type="text" name="phone" id="phone" />
+    <label for="email">Email</label>
+    <input type="text" name="email" id="email" />
+    <label for="proptype">Property Type</label>
+    <input type="text" name="proptype" id="proptype" />
+    <label for="parking">Parking</label>
+    <input type="text" name="parking" id="parking" />
+    <label for="access">Tree Access</label>
+    <input type="text" name="access" id="access" />
+    <label for="clientid">Client #</label>
+    <input type="text" name="clientid" id="clientid" />
+
+    <button onclick="sendProperty()">Submit</button>
+</form>
+<a href="/properties.html">Properties</a>
+
+<script>
+    async function sendProperty(e) {
+        let prop = {
+            "address": document.getElementById('address').value,
+            "label": document.getElementById('label').value,
+            "contactname": document.getElementById('contactname').value,
+            "latitude": document.getElementById('latitude').value,
+            "longitude": document.getElementById('longitude').value,
+            "proptype": document.getElementById('proptype').value,
+            "email": document.getElementById('email').value,
+            "phone": document.getElementById('phone').value,
+            "parking": document.getElementById('parking').value,
+            "treeaccess": document.getElementById('access').value,
+            "clientid": document.getElementById('clientid').value,
+        };
+
+        await fetch("http://localhost:8080/api/properties", {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(prop)
+        })
+            .then(result => result.text())
+            .then(text => alert(text));
+    }
+</script>
+</body>
+</html>
