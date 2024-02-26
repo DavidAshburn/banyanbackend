@@ -38,4 +38,10 @@ public class PropertyController {
     public Property addOneProperty(@RequestBody Property prop) {
         return this.propertyRepository.save(prop);
     }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @DeleteMapping("/api/properties/{id}")
+    public void deleteProperty(@RequestBody Long id) {
+        this.propertyRepository.deleteById(id);
+    }
 }

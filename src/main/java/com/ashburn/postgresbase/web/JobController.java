@@ -38,4 +38,10 @@ public class JobController {
     public Job addOneJob(@RequestBody Job job) {
         return this.jobRepository.save(job);
     }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @DeleteMapping("/api/jobs/{id}")
+    public void deleteJob(@RequestBody Long id) {
+        this.jobRepository.deleteById(id);
+    }
 }

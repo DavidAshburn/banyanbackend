@@ -37,4 +37,10 @@ public class TreeController {
     public Tree addOneTree(@RequestBody Tree tree) {
         return (Tree) this.treeRepository.save(tree);
     }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @DeleteMapping("/api/trees/{id}")
+    public void deleteTree(@RequestBody Long id) {
+        this.treeRepository.deleteById(id);
+    }
 }

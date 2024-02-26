@@ -37,4 +37,10 @@ public class ClientController {
     public Client addOneClient(@RequestBody Client prop) {
         return this.clientRepository.save(prop);
     }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @DeleteMapping("/api/clients/{id}")
+    public void deleteClient(@RequestBody Long id) {
+        this.clientRepository.deleteById(id);
+    }
 }
