@@ -6,7 +6,6 @@ import com.ashburn.postgresbase.model.Role;
 import com.ashburn.postgresbase.model.UserEntity;
 import com.ashburn.postgresbase.repository.RoleRepository;
 import com.ashburn.postgresbase.repository.UserEntityRepository;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
