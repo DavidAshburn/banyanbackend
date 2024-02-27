@@ -3,14 +3,13 @@ package com.ashburn.postgresbase.security;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 //exception handling before the servlet
-@Service
+@Component
 public class JWTAuthEntryPoint implements AuthenticationEntryPoint {
 
     @Override

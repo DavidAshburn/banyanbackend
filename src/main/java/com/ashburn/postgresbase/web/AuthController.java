@@ -1,11 +1,13 @@
 package com.ashburn.postgresbase.web;
 
+import com.ashburn.postgresbase.dto.AuthResponseDto;
 import com.ashburn.postgresbase.dto.LoginDto;
 import com.ashburn.postgresbase.dto.RegisterDto;
 import com.ashburn.postgresbase.model.Role;
 import com.ashburn.postgresbase.model.UserEntity;
 import com.ashburn.postgresbase.repository.RoleRepository;
 import com.ashburn.postgresbase.repository.UserEntityRepository;
+import com.ashburn.postgresbase.security.JWTGenerator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,23 +26,26 @@ public class AuthController {
     private UserEntityRepository userRepository;
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
+    private JWTGenerator jwtGenerator;
 
     public AuthController(AuthenticationManager authenticationManager, UserEntityRepository userRepository,
-                          RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+                          RoleRepository roleRepository, PasswordEncoder passwordEncoder, JWTGenerator jwtGenerator) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtGenerator = jwtGenerator;
     }
 
     @PostMapping("/login")
     @CrossOrigin(origins = "http://localhost:3000")
-    public ResponseEntity<String> login(@RequestBody LoginDto loginDto) {
+    public ResponseEntity<AuthResponseDto> login(@RequestBody LoginDto loginDto) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginDto.getUsername(),
                         loginDto.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        return new ResponseEntity<>("User signed in", HttpStatus.OK);
+        String token = jwtGenerator.generateToken(authentication);
+        return new ResponseEntity<>(new AuthResponseDto(token), HttpStatus.OK);
     }
 
     @PostMapping("/register")
